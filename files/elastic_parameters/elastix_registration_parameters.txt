@@ -1,0 +1,76 @@
+// ***************************************************************
+// ** rigid **
+
+
+// ** fixed general settings **
+// ***************************************************************
+(FixedInternalImagePixelType "float")
+(MovingInternalImagePixelType "float")
+(UseDirectionCosines "true")
+
+(DefaultPixelValue 0)
+(WriteTransformParametersEachIteration "false")
+(ResultImageFormat "nii.gz")
+(ResultImagePixelType "float")
+
+(ErodeMask "false")
+(ErodeFixedMask "false")
+
+(Registration "MultiResolutionRegistration")
+
+(ImageSampler "RandomCoordinate")
+(CheckNumberOfSamples "false")
+(NewSamplesEveryIteration "true")
+(MaximumNumberOfSamplingAttempts 5)
+
+(HowToCombineTransforms "Compose")
+
+(Optimizer "AdaptiveStochasticGradientDescent")
+(ASGDParameterEstimationMethod "Original")
+(AutomaticParameterEstimation "true")
+(AutomaticTransformInitialization "true")
+
+(Resampler "DefaultResampler")
+(FixedImagePyramid "FixedGenericImagePyramid")
+(MovingImagePyramid "MovingGenericImagePyramid")
+// ***************************************************************
+
+
+// ** setting specific for PCA or non PCA methods **
+// ***************************************************************
+(Metric "AdvancedMattesMutualInformation")
+//(Metric "AdvancedMeanSquares")
+
+(AutomaticScalesEstimation "true")
+
+//(Interpolator "BSplineInterpolator")
+//(ResampleInterpolator "FinalBSplineInterpolator")
+
+(Interpolator "NearestNeighborInterpolator")
+(ResampleInterpolator "FinalNearestNeighborInterpolator")
+
+// ***************************************************************
+
+
+// ** setting allowed by QMRITools **
+// ***************************************************************
+(WriteResultImage  "true")
+
+(NumberOfResolutions 4)
+
+//(BSplineInterpolationOrder 3)
+//(FinalNearestNeighborInterpolator)
+
+(NumberOfHistogramBins 3)
+(MaximumNumberOfIterations 500)
+
+(NumberOfSpatialSamples 30000)
+// ***************************************************************
+
+
+// ** Transform type specific settings **
+// ***************************************************************
+(Transform "EulerTransform")
+// ***************************************************************
+
+//****************** end of file ***************

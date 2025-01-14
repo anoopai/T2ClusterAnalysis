@@ -1,0 +1,46 @@
+# IDEs and editors
+**/.idea
+**/.vscode
+
+# Cache files
+**/__pycache__
+**/.pytest_cache
+*.pyc
+
+# Build files
+*.egg-info
+*.spec
+build/
+**/dist
+
+# Data
+**/dicoms
+**/unittest-data
+**/.dosma
+
+# Ignore runtime generated package scripts
+**/._*
+
+# Generated docs
+docs/source/generated
+
+# Preferences
+**/preferences.*
+
+# Ignore all resources
+**/resources
+
+# Coverage files
+.coverage
+coverage.xml
+
+# Other folders
+**/dependencies
+**/DOSMA
+**/segmentation_check
+**/logs
+**/output
+**/results
+**/dosma_weights
+**/weights
+**/data
