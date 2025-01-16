@@ -107,10 +107,10 @@ def sgd_based_registration(fixed_img_path, moving_img_path, moving_img_save_path
             
         if reg_check:
             
-            reg_check_path = os.path.join(reg_path, f'registration_check')
+            # reg_check_path = os.path.join(reg_path, f'registration_check')
 
-            if not os.path.exists(reg_check_path):
-                os.makedirs(reg_check_path)             
+            # if not os.path.exists(reg_check_path):
+            #     os.makedirs(reg_check_path)             
         
             # Plot and save registrations for checking
             n= 30
@@ -122,7 +122,8 @@ def sgd_based_registration(fixed_img_path, moving_img_path, moving_img_save_path
             axes[0].set_title("Fixed vs Moving Qdess Scan", fontsize=12)
             axes[1].set_title("Fixed Mask on Moving Qdess Scan", fontsize=12)
     
-            plt_save_path= os.path.join(reg_check_path, f'{fixed_img_path.split(os.sep)[-2]}_slice{n}.jpg')
+            # plt_save_path= os.path.join(reg_check_path, f'{fixed_img_path.split(os.sep)[-2]}_slice{n}.jpg')
+            plt_save_path= os.path.join(reg_path, f'{fixed_img_path.split(os.sep)[-2]}_slice{n}.jpg')
             plt.savefig(plt_save_path)
 
     else:
