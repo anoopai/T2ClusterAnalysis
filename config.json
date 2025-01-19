@@ -1,13 +1,13 @@
 {
-    "image1_dicom_path": "None",
+    "image1_dicom_path": "",
 
-    "image2_dicom_path": "None",
+    "image2_dicom_path": "",
 
     "image1_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/9-C/VISIT-1/ctrl/scans/qdess",
 
     "image2_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/9-C/VISIT-2/ctrl/scans/qdess",
 
-    "results_path": "/dataNAS/people/anoopai/T2ClusterAnalysis/results/9-C/VISIT-1-2/ctrl/qdess",
+    "results_path": "/dataNAS/people/anoopai/T2ClusterAnalysis/data/9-C/results",
 
     "dosma_weights_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/files/dosma_weights/Goyal_Bone_Cart_July_2024_best_model.h5",
 

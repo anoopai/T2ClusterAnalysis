@@ -1,4 +1,4 @@
-def sgd_based_registration(fixed_img_path, moving_img_path, moving_img_save_path, fixed_mask_path, moving_mask_path, elastix_file_path, reg_path, reg_check):
+def sgd_based_registration(fixed_img_path, moving_img_path, moving_img_save_path, fixed_mask_path, moving_mask_path, elastix_file_path, reg_path):
 
     '''
     This function performs registration between two images using signed distance map of the segmentation masks.
@@ -39,8 +39,8 @@ def sgd_based_registration(fixed_img_path, moving_img_path, moving_img_save_path
     if not os.path.exists(output_path):
         os.makedirs(output_path)
 
-    # check if it is already done
-    if os.path.exists(moving_img_save_path)== False:
+    # check if the path is correct
+    if os.path.exists(fixed_img_path) and os.path.exists(moving_img_path):
 
         # Delete anything in the output directory.
         # This is to make sure there aren't any lingering files that cause the run to succeed sometimes.
@@ -98,33 +98,8 @@ def sgd_based_registration(fixed_img_path, moving_img_path, moving_img_save_path
         qdess_moving_reg = QDess([reg_echo1, reg_echo2]) # make a qdess \
 
         # save qdess scans
-        print(f'Saving registered qdess files for {os.path.basename(moving_img_path)}')
+        print(f'Saving registered qdess files')
         qdess_moving_reg.save(moving_img_save_path, save_custom=True, image_data_format=ImageDataFormat.nifti)
-
-        # seg_fixed.save_volume(seg_reg_1_save_path)
-        # if os.path.exists(seg_reg_0_save_path)== False:
-        #     seg_fixed.save_volume(seg_reg_0_save_path)
-            
-        if reg_check:
-            
-            # reg_check_path = os.path.join(reg_path, f'registration_check')
-
-            # if not os.path.exists(reg_check_path):
-            #     os.makedirs(reg_check_path)             
-        
-            # Plot and save registrations for checking
-            n= 30
-            _, axes = plt.subplots(nrows=1, ncols=2, figsize=(20,20), constrained_layout=False)
-            axes[0].imshow(qdess_fixed.volumes[0].A[:,:,n], cmap='gray', alpha=1)
-            axes[0].imshow(qdess_moving_reg.volumes[0].A[:,:,n], cmap="Blues", alpha= 0.7)
-            axes[1].imshow(qdess_moving_reg.volumes[0].A[:,:,n], cmap='gray', alpha=1)
-            axes[1].imshow(seg_fixed.A[:,:,n], cmap="Blues", alpha=0.7)
-            axes[0].set_title("Fixed vs Moving Qdess Scan", fontsize=12)
-            axes[1].set_title("Fixed Mask on Moving Qdess Scan", fontsize=12)
-    
-            # plt_save_path= os.path.join(reg_check_path, f'{fixed_img_path.split(os.sep)[-2]}_slice{n}.jpg')
-            plt_save_path= os.path.join(reg_path, f'{fixed_img_path.split(os.sep)[-2]}_slice{n}.jpg')
-            plt.savefig(plt_save_path)
-
+      
     else:
-        print(f'Registration already done between {os.path.basename(fixed_img_path)} and {os.path.basename(moving_img_path)}')
+        print("Please check the paths of inout images.")

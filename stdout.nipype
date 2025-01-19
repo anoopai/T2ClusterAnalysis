@@ -1,0 +1,45 @@
+
+transformix is started at Fri Jan 17 18:38:33 2025.
+
+which transformix:   transformix
+transformix runs at: siena
+  Linux 6.8.0-51-generic (x64), #52-Ubuntu SMP PREEMPT_DYNAMIC Thu Dec  5 13:09:44 UTC 2024
+  with 515596 MB memory, and 48 cores @ 1000 MHz.
+Running transformix with parameter file "/dataNAS/people/anoopai/T2ClusterAnalysis/data/9-C/results/registration_files/moving-0/TransformParameters.0.txt".
+
+Reading the elastix parameters from file ...
+
+Installing all components.
+InstallingComponents was successful.
+
+ELASTIX version: 4.900
+Command line options from ElastixBase:
+-in       /dataNAS/people/anoopai/miniconda3/envs/t2_cluster_analysis/lib/python3.8/site-packages/.dosma/temp/apply_warp-4df01db6-d545-11ef-badf-ac1f6bf53e1d-03589d35-03ad-48ae-9f34-d6d72b0687b6/moving.nii.gz
+-out      /dataNAS/people/anoopai/miniconda3/envs/t2_cluster_analysis/lib/python3.8/site-packages/.dosma/temp/apply_warp-4df01db6-d545-11ef-badf-ac1f6bf53e1d-03589d35-03ad-48ae-9f34-d6d72b0687b6/
+-threads  1
+-tp       /dataNAS/people/anoopai/T2ClusterAnalysis/data/9-C/results/registration_files/moving-0/TransformParameters.0.txt
+-def      unspecified, so no input points transformed
+-jac      unspecified, so no det(dT/dx) computed
+-jacmat   unspecified, so no dT/dx computed
+
+Reading input image ...
+  Reading input image took 0.759610 s
+Calling all ReadFromFile()'s ...
+  Calling all ReadFromFile()'s took 0.000119 s
+Transforming points ...
+  The command-line option "-def" is not used, so no points are transformed
+  Transforming points done, it took 0.00s
+Compute determinant of spatial Jacobian ...
+  The command-line option "-jac" is not used, so no det(dT/dx) computed.
+  Computing determinant of spatial Jacobian done, it took 0.00s
+Compute spatial Jacobian (full matrix) ...
+  The command-line option "-jacmat" is not used, so no dT/dx computed.
+  Computing spatial Jacobian done, it took 0.00s
+Resampling image and writing to disk ...
+
+  Writing image ...
+  Resampling took 9.72s
+
+transformix has finished at Fri Jan 17 18:38:43 2025.
+Total time elapsed: 10.7s.
+

@@ -18,7 +18,7 @@ from utils.convert_qdess_dicom2nii import *
 from utils.dosma_segmentation_bone_cartilage import *
 from utils.append_df_to_excel import *
 from utils.filter_qmaps import *
-from utils.difference_map_tissue import *
+from T2ClusterAnalysis.utils.compute_difference_map import *
 from utils.apply_intensity_threshold import *
 from utils.apply_volume_threshold import *
 from utils.compute_t2_DODGR import *

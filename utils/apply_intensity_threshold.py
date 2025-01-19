@@ -1,4 +1,4 @@
-def apply_intensity_threshold (difference_map_path, intensity_threshold,cluster_type):
+def apply_intensity_threshold (difference_map_path, intensity_threshold, cluster_type, save_path):
     
     '''
     difference_map: 3D difference map path (.nii format)
@@ -22,5 +22,7 @@ def apply_intensity_threshold (difference_map_path, intensity_threshold,cluster_
         return None
     
     diff_maps_intensity_thresh_mv = nib.Nifti1Image(diff_maps_intensity_thresh, affine=difference_map.affine)
+    
+    nib.save(diff_maps_intensity_thresh_mv, save_path)
 
     return diff_maps_intensity_thresh_mv

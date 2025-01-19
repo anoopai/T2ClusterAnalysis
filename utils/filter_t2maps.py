@@ -1,4 +1,4 @@
-def filter_qmaps(qmap_path, fwhm):
+def filter_t2maps(t2_map_path, fwhm, t2_map_save_path):
 
     '''
     Filter the quantitative maps with a Gaussian filter.
@@ -13,7 +13,7 @@ def filter_qmaps(qmap_path, fwhm):
     from scipy.ndimage import gaussian_filter
 
     # Get the image data as a numpy array
-    qmap= nib.load(qmap_path)
+    qmap= nib.load(t2_map_path)
     data = qmap.get_fdata()
 
     # Define the voxel sizes in mm
@@ -27,5 +27,8 @@ def filter_qmaps(qmap_path, fwhm):
 
     # Create a new NIfTI image with the filtered data
     filtered_img = nib.Nifti1Image(filtered_data, qmap.affine)
-
+    
+    # Save the filtered image
+    nib.save(filtered_img, t2_map_save_path)
+    
     return filtered_img

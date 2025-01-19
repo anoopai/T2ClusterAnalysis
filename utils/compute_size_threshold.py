@@ -1,4 +1,4 @@
-def compute_volume_threshold(difference_maps_int_all, percentile_values):
+def compute_size_threshold(difference_maps_int_all, percentile_values):
     
     '''
     This function computes the volume threshold for the T2-Cluster analysis.
@@ -48,7 +48,7 @@ def compute_volume_threshold(difference_maps_int_all, percentile_values):
     num_voxel_ordered = np.sort(num_voxel_all) 
     
     # Initialize an empty list to collect data
-    volume_threshold_list = []
+    size_threshold_list = []
 
     # Plotting the histogram
     fig, ax = plt.subplots(figsize=(5, 5))
@@ -64,7 +64,7 @@ def compute_volume_threshold(difference_maps_int_all, percentile_values):
     # Calculate percentile values and collect them in a list of dictionaries
     for percentile_value in percentile_values:
         vol_threshold_value = np.percentile(num_voxel_ordered, percentile_value)
-        volume_threshold_list.append({'Percentile': percentile_value, 'Volume Threshold': vol_threshold_value})
+        size_threshold_list.append({'Percentile': percentile_value, 'Volume Threshold': vol_threshold_value})
 
         # Draw a vertical line at 2 standard deviations above the mean
         plt.axvline(x=vol_threshold_value, color='#8B3E2F', linestyle='dashed', linewidth=1.5)
@@ -81,7 +81,7 @@ def compute_volume_threshold(difference_maps_int_all, percentile_values):
     plt.show()
     
     # Convert the list of dictionaries to a DataFrame
-    volume_threshold_data = pd.DataFrame(volume_threshold_list)
+    size_threshold_data = pd.DataFrame(size_threshold_list)
     
-    print(volume_threshold_data)
+    print(size_threshold_data)
 

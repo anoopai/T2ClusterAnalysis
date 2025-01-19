@@ -1,4 +1,4 @@
-def difference_map_tissue(baseline_qmap_path, followup_qmap_path, baseline_mask_path, followup_mask_path, mask_erode=False, erode_size=1):
+def t2_difference_maps(baseline_qmap_path, followup_qmap_path, baseline_mask_path, followup_mask_path, mask_erode=False, erode_size=1, diff_map_save_path=None):
         
     '''
     baseline_qmap: baseline quantitatrive map (T2 and T1rho)
@@ -18,7 +18,6 @@ def difference_map_tissue(baseline_qmap_path, followup_qmap_path, baseline_mask_
     followup_qmap = nib.load(followup_qmap_path)
     baseline_mask = nib.load(baseline_mask_path)
     followup_mask = nib.load(followup_mask_path)
-    
     
     # convert to binary mask (1s and 0s, if labels are not 1)
     baseline_mask_binary = np.where(baseline_mask.get_fdata() > 0, 1, 0)
@@ -46,5 +45,8 @@ def difference_map_tissue(baseline_qmap_path, followup_qmap_path, baseline_mask_
     
     # Convert the numpy array to a Nifti1Image
     diff_map_nii = Nifti1Image(diff_map, followup_qmap.affine)
+    
+    # Save the Nifti1Image
+    nib.save(diff_map_nii, diff_map_save_path)
 
     return diff_map_nii
