@@ -133,7 +133,7 @@ pip install -r requirements.txt
     # Cluster type can be:
     # "pos" for increase in T2 with time
     # "neg" for decrease in T2 with time 
-    "cluster_type" : "pos", # neg
+    "cluster_type" : "pos",
 
     # Intensity threhsold is in T2 change in ms. You can use this value as default or calculate one for your dataset
     "intensity_threshold" : 12.5,

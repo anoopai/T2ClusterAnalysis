@@ -39,7 +39,7 @@ coverage.xml
 # scripts
 .compute_t2_fc_dess.py
 .main_pipeline.ipynb
-.main_pipelin.py
+.main_pipeline.py
 .surface_plots.ipynb
 .T2C_metrics_plots.ipynb
 
