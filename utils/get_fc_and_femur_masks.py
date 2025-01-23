@@ -18,7 +18,7 @@ def get_fc_and_femur_masks(seg_path, seg_fc_femur_path):
         # fc_seg = np.where(seg.get_fdata() == 2, 1, 0).astype(float)
         fc_seg = np.where(np.isin(seg.get_fdata(), [2, 7]), seg.get_fdata(), 0).astype(float) # get femur segmentation
         seg_nii = nib.Nifti1Image(fc_seg, seg.affine)
-        print(f'Saving femoral cartilage segmentation to {seg_fc_femur_path}')
+        # print(f'Saving FC and femur segmentation to {seg_fc_femur_path}')
         nib.save(seg_nii, seg_fc_femur_path)
     else:
         print(f'{seg_path} does not exist. Please check the path.')

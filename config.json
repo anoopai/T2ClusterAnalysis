@@ -3,20 +3,20 @@
 
     "image2_dicom_path": "",
 
-    "image1_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/9-C/VISIT-1/ctrl/scans/qdess",
+    "image1_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-1/aclr/scans/qdess",
 
-    "image2_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/9-C/VISIT-2/ctrl/scans/qdess",
+    "image2_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-5/aclr/scans/qdess",
 
-    "results_path": "/dataNAS/people/anoopai/T2ClusterAnalysis/data/9-C/results",
+    "results_path": "/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-5/aclr/results",
 
     "dosma_weights_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/files/dosma_weights/Goyal_Bone_Cart_July_2024_best_model.h5",
 
     "elastix_registration_parameters_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/files/elastic_parameters/elastix_registration_parameters_SDF_mask.txt",
 
-    "cluster_type" : "pos",
+    "cluster_type" : "pos", 
 
     "intensity_threshold" : 12.5,
 
-    "size_threshold" : 30
+    "size_threshold" : 25
 
 }

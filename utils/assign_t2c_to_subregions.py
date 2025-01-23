@@ -1,4 +1,4 @@
-def assign_t2c_to_subregions(cluster_map_path, fc_subregions_path):
+def assign_t2c_to_subregions(cluster_map_path, fc_subregions_path, t2c_save_path, t2c_results_save_path):
     
     import numpy as np
     import cc3d
@@ -8,12 +8,17 @@ def assign_t2c_to_subregions(cluster_map_path, fc_subregions_path):
     from utils.com_of_labeled_mask import com_of_labeled_mask
     from utils.eucledian_distance_t2c_subregions import eucledian_distance_t2c_subregions
     from utils.t2c_to_subregion_map import t2c_to_subregion_map 
-    from utils.get_num_voxels import get_num_voxels 
+    from utils.get_num_voxels import get_num_voxels
+    from utils.get_values_per_t2c import get_values_per_t2c
+    from utils.append_df_to_excel import append_df_to_excel
     
 
     # Load cluster map and convert to binary    
-    cluster_map = nib.load(cluster_map_path).get_fdata()
+    cluster_map_img = nib.load(cluster_map_path)
+    cluster_map= cluster_map_img.get_fdata()
     affine = nib.load(cluster_map_path).affine
+    
+    voxel_dims= cluster_map_img.header.get_zooms()
     
     fc_subregions_mask = nib.load(fc_subregions_path).get_fdata().astype(int)
     
@@ -45,11 +50,16 @@ def assign_t2c_to_subregions(cluster_map_path, fc_subregions_path):
         )
         
     # Assign T2 cluster to subregions
-    t2c_in_subregion_dict= t2c_to_subregion_map (cluster_subregion_distances_dict)
+    t2c_in_subregion_dict= t2c_to_subregion_map(cluster_subregion_distances_dict)
     
     ############# Compute number of voxels for each label ##############
-    cluster_num_voxels_dict= get_num_voxels(cc_labels) # number of voxels per cluster
-    subregion_num_voxels_dict= get_num_voxels(fc_subregions_mask)
+    cluster_num_voxels_dict = get_num_voxels(cc_labels) # number of voxels per cluster
+    subregion_num_voxels_dict = get_num_voxels(fc_subregions_mask)
+    
+    ########## Get T2 mean, std, median for each cluster ##############
+    
+    _, cluster_percent_dict, cluster_size_dict, cluster_t2mean_dict, \
+            cluster_t2std_dict, cluster_t2median_dict= get_values_per_t2c(cluster_map_img, fc_subregions_mask)
     
     ########## Convert all the dictionaries to a dataframes #############
     ########### T2C COMs ###########
@@ -58,7 +68,7 @@ def assign_t2c_to_subregions(cluster_map_path, fc_subregions_path):
     
     ########### FC sub-region COM ###########
     subregions_com_data = pd.DataFrame.from_dict(subregions_com_dict, orient= 'index', columns=['X-value', 'Y-value', 'Z-value'])
-    subregions_com_data = subregions_com_data.reset_index().rename(columns={'index': 'Sub-region Label'})
+    subregions_com_data = subregions_com_data.reset_index().rename(columns={'index': 'Region Label'})
 
     subregion_mapping = {
         11: "AN",
@@ -69,27 +79,40 @@ def assign_t2c_to_subregions(cluster_map_path, fc_subregions_path):
     }
 
     # Insert the subregion column
-    subregions_com_data['Sub-region'] = subregions_com_data['Sub-region Label'].map(subregion_mapping)
-    subregions_com_data.insert(1, 'Sub-region', subregions_com_data.pop('Sub-region'))
+    subregions_com_data['Region'] = subregions_com_data['Region Label'].map(subregion_mapping)
+    subregions_com_data.insert(1, 'Region', subregions_com_data.pop('Region'))
     
     ########## Distance of each T2C COM to each subregion COM ###########
     t2c_subregion_distances_all_data=pd.DataFrame.from_dict(cluster_subregion_distances_dict, orient= 'index')
     t2c_subregion_distances_all_data=t2c_subregion_distances_all_data.reset_index().rename(columns={'index': 'T2C Label'})
     
-    ########### T2C in Subregions ###########
-    t2c_in_subregion_data=pd.DataFrame.from_dict(t2c_in_subregion_dict, orient= 'index', columns=['Sub-region Label'])
+    ###################### T2C in Subregions ##########################
+    t2c_in_subregion_data=pd.DataFrame.from_dict(t2c_in_subregion_dict, orient= 'index', columns=['Region Label'])
     t2c_in_subregion_data=t2c_in_subregion_data.reset_index().rename(columns={'index': 'T2C Label'})
-    t2c_in_subregion_data['Sub-region'] = t2c_in_subregion_data['Sub-region Label'].map(subregion_mapping)
-    t2c_in_subregion_data.insert(1, 'Sub-region', t2c_in_subregion_data.pop('Sub-region'))
-    t2c_in_subregion_data['Sub-region Voxels'] = t2c_in_subregion_data['Sub-region Label'].map(subregion_num_voxels_dict)
-    t2c_in_subregion_data['T2C Voxels'] = t2c_in_subregion_data['T2C Label'].map(cluster_num_voxels_dict)  
-    
+    t2c_in_subregion_data['Region'] = t2c_in_subregion_data['Region Label'].map(subregion_mapping)
+    t2c_in_subregion_data.insert(1, 'Region', t2c_in_subregion_data.pop('Region'))
+    t2c_in_subregion_data['Region Voxels'] = t2c_in_subregion_data['Region Label'].map(subregion_num_voxels_dict)
+    t2c_in_subregion_data['T2C Voxels'] = t2c_in_subregion_data['T2C Label'].map(cluster_num_voxels_dict) 
+    t2c_in_subregion_data['T2C Percent'] = (t2c_in_subregion_data['T2C Voxels'] / t2c_in_subregion_data['Region Voxels']) * 100
+    t2c_in_subregion_data['T2C Size (mm^3)'] = t2c_in_subregion_data['T2C Label'].map(cluster_size_dict)
+    t2c_in_subregion_data['T2C Num'] = 1
+    t2c_in_subregion_data['T2C Mean (ms)'] = t2c_in_subregion_data['T2C Label'].map(cluster_t2mean_dict)
+    t2c_in_subregion_data['T2C Std (ms)'] = t2c_in_subregion_data['T2C Label'].map(cluster_t2std_dict)
+    t2c_in_subregion_data['T2C Median (ms)'] = t2c_in_subregion_data['T2C Label'].map(cluster_t2median_dict)
+    t2c_in_subregion_data = t2c_in_subregion_data[['T2C Label', 'Region', 'T2C Percent', 'T2C Size (mm^3)', 'T2C Num', 'T2C Mean (ms)', 'T2C Std (ms)', 'T2C Median (ms)','T2C Voxels', 'Region Voxels']]
+
     # Assign sub-region values to T2C based on which region it belongs
     t2c_as_subregion_labels = np.zeros_like(cc_labels)
     for t2c_label, subregion_label in t2c_in_subregion_dict.items():
         t2c_as_subregion_labels[cc_labels == t2c_label] = subregion_label
         
     t2c_as_subregion_labels_img= nib.Nifti1Image(t2c_as_subregion_labels, affine)
-        
-    return cluster_com_data, subregions_com_data, t2c_subregion_distances_all_data, t2c_in_subregion_data, t2c_as_subregion_labels_img                                            
+    nib.save(t2c_as_subregion_labels_img, t2c_save_path)
+    
+    # append_df_to_excel(data=cluster_com_data, sheet= 'T2C COM', save_path= t2c_results_save_path)      
+    # append_df_to_excel(data=subregions_com_data, sheet= 'Regions COM', save_path= t2c_results_save_path)
+    # append_df_to_excel(data=t2c_subregion_distances_all_data, sheet= 'Distance bw T2C-Subregions COM', save_path= t2c_results_save_path)      
+    append_df_to_excel(data=t2c_in_subregion_data, sheet= 'T2C Metrics Cluster-wise', save_path= t2c_results_save_path)
+
+    return t2c_in_subregion_data                                          
     

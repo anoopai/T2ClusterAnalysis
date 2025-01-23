@@ -22,15 +22,22 @@ def generate_fc_subregions(input_seg_file_path, output_seg_file_path):
     # realign the segmentation mask to the format used by SimpleITK
     seg_reorient = realign_seg_masks_SITK_format(input_seg_file_path)
     # seg_reorient = sitk.ReadImage(input_seg_file_path)
-    
-    # Divide into sub regions. (weightbearing / trochlea / posterior condyles)
+
     fc_regions = get_knee_segmentation_with_femur_subregions(
-        seg_image = seg_reorient,
+        seg_image= seg_reorient,
         fem_cart_label_idx=2,
         wb_region_percent_dist=0.6,
+        # femur_label=1,
         med_tibia_label=3,
         lat_tibia_label=4,
+        ant_femur_mask=11,
+        med_wb_femur_mask=12,
+        lat_wb_femur_mask=13,
+        med_post_femur_mask=14,
+        lat_post_femur_mask=15,
+        verify_med_lat_tib_cart=True,
         tibia_label=8,
+        ml_axis=0,
     )
     
     # realign the segmentation mask to the format used by Dosma/ other data

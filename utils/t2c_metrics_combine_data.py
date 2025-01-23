@@ -1,0 +1,70 @@
+from os import remove
+
+
+def t2c_metrics_combine_data(t2c_subregion_data, cluster_map_path, save_path):
+    
+    import os
+    import numpy as np
+    import pandas as pd
+    import nibabel as nib
+
+    from utils.append_df_to_excel import append_df_to_excel
+
+    # Load the data from the excel file
+    
+    cluster_map= cluster_map = nib.load(cluster_map_path)
+    voxel_dims= cluster_map.header.get_zooms()
+
+    subregions_dict = {'AN': 11, 'MC': 12, 'LC': 13, 'MP': 14, 'LP': 15}
+
+    # Regions to ensure all are included
+    all_regions = ['AN', 'LC', 'LP', 'MC', 'MP']
+
+    # Group by Region and calculate required value    
+    
+    agg_data = t2c_subregion_data.groupby('Region').agg(
+    Total_T2C_Voxels=('T2C Voxels', 'sum'),
+    Total_Region_Voxels=('Region Voxels', 'first'),
+    T2C_Size=('T2C Size (mm^3)', 'mean'),
+    T2C_Num=('T2C Num', 'sum'),
+    T2C_Mean=('T2C Mean (ms)', 'mean'),
+    T2C_Std=('T2C Std (ms)', 'mean'),
+    T2C_Median=('T2C Median (ms)', 'mean')
+    ).reset_index()
+    
+    data_all = pd.DataFrame()
+    
+    data_all ['Region'] = agg_data['Region']
+
+    # Calculate other columns
+    data_all['T2C Percent'] = (agg_data['Total_T2C_Voxels'] / agg_data['Total_Region_Voxels']) * 100
+    data_all['T2C Size (mm^3)'] = agg_data['T2C_Size'] * voxel_dims[0] * voxel_dims[1] * voxel_dims[2]
+    data_all['T2C Num'] = agg_data['T2C_Num']   
+    data_all['T2C Mean (ms)'] = agg_data['T2C_Mean']
+    data_all['T2C Std (ms)'] = agg_data['T2C_Std']
+    data_all['T2C Median (ms)'] = agg_data['T2C_Median']
+    data_all['Region Voxels'] = agg_data['Total_Region_Voxels']
+    data_all['T2C Voxels'] = agg_data['Total_T2C_Voxels']
+
+    # Add missing regions with zero values
+    missing_regions = set(all_regions) - set(data_all['Region'])
+    missing_data = pd.DataFrame([{
+        'Region': region,
+        'T2C Percent': 0,
+        'T2C Size (mm^3)': 0,
+        'T2C Num': 0,
+        'T2C Mean (ms)': 'NaN',
+        'T2C Std (ms)': 'NaN',
+        'T2C Median (ms)': 'NaN',
+        'T2C Voxels': 0,
+        'Region Voxels': 0,
+    } for region in missing_regions])
+
+    # Combine the data
+    final_data = pd.concat([data_all, missing_data], ignore_index=True)
+
+    # Sort by region to maintain order
+    final_data = final_data.sort_values(by='Region').reset_index(drop=True)
+    
+    sheet = 'T2C Metrics Region-wise'
+    append_df_to_excel(final_data, sheet, save_path)
