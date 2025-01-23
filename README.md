@@ -2,16 +2,23 @@
 
 # Installation
 
-1. Fork and clone the repository to your machine
-2. Install Dependencies
+###### Fork and clone the repository to your machine
+
+```
+https://github.com/anoopai/T2ClusterAnalysis.git
+```
+
+###### Install Dependencies
 
 * DOSMA (for bone, cartilage and meniscus segmentation)
-* pymskt (get 3D surfaces from 3D segmentations)
+* PYMSKT (Dividing femoral cartilage into subregion, 3D visualisations from 3D meshes)
+
+###### DOSMA
 
 ```
 # create environment
-conda create -n t2_cluster_analysis python=3.8
-conda activate t2_cluster_analysis
+conda create -n cluster_analysis python=3.8
+conda activate cluster_analysis
 
 # install non-python dependcies
 conda install anaconda::cmake
@@ -54,4 +61,23 @@ Once you run the above, you will then input your access token from huggingface. 
 ```
 # Download Dosma weights from Huggingface 
 python download_dosma_weights.py
+```
+
+#### PYMSKT
+
+```
+cd dependencies
+
+# clone repository
+git clone https://github.com/gattia/pymskt.git
+  
+# move into directory
+cd pymskt
+  
+# INSTALLING DEPENDENCIES
+# Recommend pip becuase cycpd and pyfocusr are available on pypi (but not conda)
+pip install -r requirements.txt
+
+# IF USING PIP
+pip install .
 ```
