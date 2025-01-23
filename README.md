@@ -6,6 +6,7 @@
 
 ```
 https://github.com/anoopai/T2ClusterAnalysis.git
+cd T2ClusterAnalysis
 ```
 
 ###### Install Dependencies
@@ -33,17 +34,19 @@ git clone https://github.com/gattia/DOSMA
 cd DOSMA
 git checkout bone_seg
 pip install '.[ai]'
-
-# Install pymskt 
-pip install mskt
-
-# Install other modules/libraries/dependencies
-pip install -r requirements.txt
-
-# NOTE: IF HAVING ISSUES WITH TF, INSTALL VERSION 2.11 (pip install tensorflow==2.11)
 ```
 
 Download DOSMA weights to perform automatic bone and tissue segmentation
+
+
+```
+# to download DOSMA model weights, install huggingface API
+pip install huggingface-hub
+```
+
+pip install huggingface_hub
+
+Login
 
 ```
 huggingface-cli login
@@ -59,7 +62,8 @@ Once you run the above, you will then input your access token from huggingface. 
 * copy the token and input into the commandline prompt
 
 ```
-# Download Dosma weights from Huggingface 
+# Download Dosma weights from Huggingface by running the following script
+# make sure you are in the main repository (Path/to/T2ClusterAnalysis/) before you run the script
 python download_dosma_weights.py
 ```
 
@@ -80,4 +84,11 @@ pip install -r requirements.txt
 
 # IF USING PIP
 pip install .
+```
+
+###### T2 Cluster Analysis
+
+```
+# make sure you are in the main repository (Path/to/T2ClusterAnalysis/) before you run the script
+pip install -r requirements.txt
 ```

@@ -81,25 +81,25 @@ size_threshold = config['size_threshold']
 # ATTENTION: Needs GPU!
 
 seg1_path= os.path.join(results_path, 'seg1_all.nii.gz')
-# print("Segmenting image 1")
-# dosma_segmentation_bone_cartilage(
-#         qdess_file_path = image1_path,
-#         output_file_path = seg1_path,
-#         weights_path = weights_path)
+print("Segmenting image 1")
+dosma_segmentation_bone_cartilage(
+        qdess_file_path = image1_path,
+        output_file_path = seg1_path,
+        weights_path = weights_path)
 
 seg2_path= os.path.join(results_path, 'seg2_all.nii.gz')
-# print("Segmenting image 2")
-# dosma_segmentation_bone_cartilage(
-#         qdess_file_path = image2_path,
-#         output_file_path = seg2_path,
-#         weights_path = weights_path)
+print("Segmenting image 2")
+dosma_segmentation_bone_cartilage(
+        qdess_file_path = image2_path,
+        output_file_path = seg2_path,
+        weights_path = weights_path)
 
 # Save femoral cartilage and femur masks Seperately
 seg1_fc_path = os.path.join(results_path, 'seg1_fc.nii.gz')
 seg2_fc_path = os.path.join(results_path, 'seg2_fc.nii.gz')
 
-# get_fc_mask(seg1_path, seg1_fc_path)
-# get_fc_mask(seg2_path, seg2_fc_path)
+get_fc_mask(seg1_path, seg1_fc_path)
+get_fc_mask(seg2_path, seg2_fc_path)
 
 #####################################################################################################################
 #####################################################################################################################
@@ -112,16 +112,16 @@ seg2_fc_path = os.path.join(results_path, 'seg2_fc.nii.gz')
 # 1. Registration
 image2_reg_path = os.path.join(results_path, 'image2_reg')
 
-# print("Registering qdess image 2 to image 1")
-# sgd_based_registration(
-#     fixed_img_path = image1_path,
-#     moving_img_path = image2_path,
-#     moving_img_save_path = image2_reg_path,
-#     fixed_mask_path = seg1_fc_path,
-#     moving_mask_path = seg2_fc_path,
-#     elastix_file_path = elastix_reg_parameters_path,
-#     reg_path = results_path
-#    ) 
+print("Registering qdess image 2 to image 1")
+sgd_based_registration(
+    fixed_img_path = image1_path,
+    moving_img_path = image2_path,
+    moving_img_save_path = image2_reg_path,
+    fixed_mask_path = seg1_fc_path,
+    moving_mask_path = seg2_fc_path,
+    elastix_file_path = elastix_reg_parameters_path,
+    reg_path = results_path
+   ) 
 
 ####################################################################################################################
 ####################################################################################################################
@@ -137,11 +137,11 @@ image2_reg_path = os.path.join(results_path, 'image2_reg')
 # 1. Re-segmentation
 # Option 1
 seg2_reg_path= os.path.join(results_path, 'seg2_reg.nii.gz')
-# print("Resegmenting image 2 after registration to image 1")
-# dosma_segmentation_bone_cartilage(
-#         qdess_file_path = image2_reg_path,
-#         output_file_path = seg2_reg_path,
-#         weights_path = weights_path)
+print("Resegmenting image 2 after registration to image 1")
+dosma_segmentation_bone_cartilage(
+        qdess_file_path = image2_reg_path,
+        output_file_path = seg2_reg_path,
+        weights_path = weights_path)
 
 ## Option 2 (not recommended)
 ## image2_mask_reg_path = image1_mask_path

@@ -37,6 +37,7 @@ coverage.xml
 # Other folders
 **/dependencies
 **/DOSMA
+**/pymskt
 **/segmentation_check
 **/logs
 **/output
