@@ -109,41 +109,5 @@ def sgd_based_qmap_registration(fixed_img_path, moving_img_path, moving_img_save
         # dm.save_volume(qmap_moving_reg, moving_qmap_save_path)
         qmap_moving_reg.save_volume(moving_qmap_save_path)
 
-        # seg_fixed.save_volume(seg_reg_1_save_path)
-        # if os.path.exists(seg_reg_0_save_path)== False:
-        #     seg_fixed.save_volume(seg_reg_0_save_path)
-            
-        # if reg_check:
-            
-        #     reg_check_path = os.path.join(os.path.dirname(os.path.normpath(moving_img_path)), f'registration_check')
-
-        #     if not os.path.exists(reg_check_path):
-        #         os.makedirs(reg_check_path)             
-        
-            # # Plot and save registrations for checking
-            # n= 45
-            # _, axes = plt.subplots(nrows=1, ncols=2, figsize=(20,20), constrained_layout=False)
-            # axes[0].imshow(qdess_fixed.volumes[0].A[:,:,n], cmap='gray', alpha=1)
-            # axes[0].imshow(qdess_moving_reg.volumes[0].A[:,:,n], cmap="Blues", alpha= 0.7)
-            # axes[1].imshow(qdess_moving_reg.volumes[0].A[:,:,n], cmap='Blues', alpha=1)
-            # axes[1].imshow(seg_fixed.A[:,:,n], cmap="Oranges", alpha=0.7)
-            # axes[0].set_title("Baseline vs Timepoint Qdess", fontsize=12)
-            # axes[1].set_title("Baseline Mask on Timepoint", fontsize=12)
-            # plt_save_path= os.path.join(reg_check_path, f'{os.path.basename(moving_img_path)}_slice{n}.jpg')
-            # plt.savefig(plt_save_path)
-            
-             # Plot and save registrations for checking
-            # n= 45
-            # _, axes = plt.subplots(nrows=1, ncols=2, figsize=(20,20), constrained_layout=False)
-            # axes[0].imshow(qmap_fixed.A[:,:,n], cmap='Oranges', alpha=1)
-            # axes[0].imshow(qmap_moving_reg.A[:,:,n], cmap="Purples", alpha= 0.7)
-            # axes[1].imshow(qmap_moving_reg.A[:,:,n], cmap='Purples', alpha=1)
-            # axes[1].imshow(seg_fixed.A[:,:,n], cmap="Greens", alpha=0.7)
-            # axes[0].set_title("Baseline vs Timepoint Qdess", fontsize=12)
-            # axes[1].set_title("Baseline Mask on Timepoint", fontsize=12)
-            # plt_save_path= os.path.join(reg_check_path, f'{os.path.basename(moving_img_path)}_qmap_slice{n}.jpg')
-            # plt.savefig(plt_save_path)
-
-
     else:
         print(f'Registration already done between {os.path.basename(fixed_img_path)} and {os.path.basename(moving_img_path)}')

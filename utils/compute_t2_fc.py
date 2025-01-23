@@ -27,8 +27,9 @@ def compute_t2_fc(qdess_path, mask_path, t2_save_path):
     print('Computing T2 map...')
 
     # Generate t2 map, alpha (flip anlge)=25 from Dr.Balck's thesis
-    t2= qdess.generate_t2_map(fc, tr= 0.01766e3, te= 0.005924e3, tg= 0.001904e6, alpha= 20, gl_area=3132)
-        
+    # t2= qdess.generate_t2_map(fc, tr= 0.01766e3, te= 0.005924e3, tg= 0.001904e6, alpha= 20, gl_area=3132)
+    t2= qdess.generate_t2_map(fc, suppress_fat=True, suppress_fluid=True)
+    
     # Clip the estimated T2 values between [0, 80]
     t2.volumetric_map = np.clip(t2.volumetric_map, 0, 80)
 

@@ -95,11 +95,11 @@ def assign_t2c_to_subregions(cluster_map_path, fc_subregions_path, t2c_save_path
     t2c_in_subregion_data['T2C Voxels'] = t2c_in_subregion_data['T2C Label'].map(cluster_num_voxels_dict) 
     t2c_in_subregion_data['T2C Percent'] = (t2c_in_subregion_data['T2C Voxels'] / t2c_in_subregion_data['Region Voxels']) * 100
     t2c_in_subregion_data['T2C Size (mm^3)'] = t2c_in_subregion_data['T2C Label'].map(cluster_size_dict)
-    t2c_in_subregion_data['T2C Num'] = 1
+    t2c_in_subregion_data['T2C Count'] = 1
     t2c_in_subregion_data['T2C Mean (ms)'] = t2c_in_subregion_data['T2C Label'].map(cluster_t2mean_dict)
     t2c_in_subregion_data['T2C Std (ms)'] = t2c_in_subregion_data['T2C Label'].map(cluster_t2std_dict)
     t2c_in_subregion_data['T2C Median (ms)'] = t2c_in_subregion_data['T2C Label'].map(cluster_t2median_dict)
-    t2c_in_subregion_data = t2c_in_subregion_data[['T2C Label', 'Region', 'T2C Percent', 'T2C Size (mm^3)', 'T2C Num', 'T2C Mean (ms)', 'T2C Std (ms)', 'T2C Median (ms)','T2C Voxels', 'Region Voxels']]
+    t2c_in_subregion_data = t2c_in_subregion_data[['T2C Label', 'Region', 'T2C Percent', 'T2C Size (mm^3)', 'T2C Count', 'T2C Mean (ms)', 'T2C Std (ms)', 'T2C Median (ms)','T2C Voxels', 'Region Voxels']]
 
     # Assign sub-region values to T2C based on which region it belongs
     t2c_as_subregion_labels = np.zeros_like(cc_labels)

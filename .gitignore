@@ -6,6 +6,7 @@
 **/__pycache__
 **/.pytest_cache
 *.pyc
+**/.nipype
 
 # Build files
 *.egg-info
@@ -27,12 +28,20 @@ docs/source/generated
 # Preferences
 **/preferences.*
 
+
 # Ignore all resources
 **/resources
 
 # Coverage files
 .coverage
 coverage.xml
+
+# scripts
+.compute_t2_fc_dess.py
+.main_pipeline.ipynb
+.main_pipelin.py
+.surface_plots.ipynb
+.T2C_metrics_plots.ipynb
 
 # Other folders
 **/dependencies

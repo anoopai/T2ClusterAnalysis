@@ -1,20 +1,21 @@
 # T2-Cluster-Analysis
 
-# Installation
+## Installation
 
-###### Fork and clone the repository to your machine
+### Fork and clone the repository to your machine
 
 ```
 https://github.com/anoopai/T2ClusterAnalysis.git
 cd T2ClusterAnalysis
 ```
 
-###### Install Dependencies
+#### Install Dependencies
 
-* DOSMA (for bone, cartilage and meniscus segmentation)
-* PYMSKT (Dividing femoral cartilage into subregion, 3D visualisations from 3D meshes)
+* DOSMA (for bone, cartilage and meniscus segmentation, T2 maps)
+* PYMSKT (for dividing femoral cartilage into subregions, 3D visualisations or T2 clusters)
+* T2 Cluster analysis (for computing difference maps, intensity and size thresholding)
 
-###### DOSMA
+##### DOSMA
 
 ```
 # create environment
@@ -39,16 +40,11 @@ pip install '.[ai]'
 Download DOSMA weights to perform automatic bone and tissue segmentation
 
 ```
-# to download DOSMA model weights, install huggingface API
+# To download DOSMA model weights, install huggingface API
 pip install huggingface-hub
-```
 
-pip install huggingface_hub
-
-Login
-
-```
-huggingface-cli login
+# Login
+Update the config file to point to the above files 
 ```
 
 Once you run the above, you will then input your access token from huggingface. You will need to have/create a hugginface account, and then can get the access token by:
@@ -62,11 +58,11 @@ Once you run the above, you will then input your access token from huggingface. 
 
 ```
 # Download Dosma weights from Huggingface by running the following script
-# make sure you are in the main repository (/T2ClusterAnalysis) before you run the script
+# make sure you are in the main repository (path/to/T2ClusterAnalysis/directory) before you run the script
 python download_dosma_weights.py
 ```
 
-#### PYMSKT
+##### PYMSKT
 
 ```
 cd dependencies
@@ -85,9 +81,70 @@ pip install -r requirements.txt
 pip install .
 ```
 
-###### T2 Cluster Analysis
+##### T2 Cluster Analysis
 
 ```
 # make sure you are in the main repository (Path/to/T2ClusterAnalysis/) before you install
 pip install -r requirements.txt
+```
+
+## Pipeline
+
+### Update config.json file for the following paths
+
+```
+    # path to your dicom dirctory - Baseline visit
+    # If you don't have dicoms directory, input "" 
+    # "image1_dicom_path": "",
+    "image1_dicom_path": "/dataNAS/people/anoopai/T2ClusterAnalysis/data/Subject/VISIT-1/aclr/scans/qdess_dicoms",
+
+    # path to your dicom dirctory - Subsequent visit
+    # If you don't have a dicoms directory, input "" 
+    # "image1_dicom_path": "",
+    "image2_dicom_path": "/dataNAS/people/anoopai/T2ClusterAnalysis/data/SubNum/VISIT-2/aclr/scans/qdess_dicoms",
+
+    # path to your qdess nii dirctory - Baseline visit
+    # Your qdess directory should be the format that DOSMA uses.
+    # qdess
+        ├── volumes
+        │   ├── echo-000.nii.gz
+        │   └── echo-001.nii.gz
+        └── qdess.data
+    "image1_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-1/aclr/scans/qdess",
+
+    # path to your qdess nii dirctory - Subsequent visit
+    # Your qdess directory should be the format that DOSMA uses.
+    # qdess
+        ├── volumes
+        │   ├── echo-000.nii.gz
+        │   └── echo-001.nii.gz
+        └── qdess.data
+    "image2_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-2/aclr/scans/qdess",
+
+    # Path to a directory to save all the outputs and results
+    "results_path": "/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-5/aclr/results",
+
+    # Segmentation Model weights
+    "dosma_weights_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/files/dosma_weights/Goyal_Bone_Cart_July_2024_best_model.h5",
+
+    # path to file containing elastix parameters for registration 
+    "elastix_registration_parameters_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/files/elastic_parameters/elastix_registration_parameters_SDF_mask.txt",
+
+    # Cluster type can be:
+    # "pos" for increase in T2 with time
+    # "neg" for decrease in T2 with time 
+    "cluster_type" : "pos", # neg
+
+    # Intensity threhsold is in T2 change in ms. You can use this value as default or calculate one for your dataset
+    "intensity_threshold" : 12.5,
+
+    # Size threhsold is calculated as number of voxels (size of T2 cluster). You can use this value as default or calculate one for your dataset
+    "size_threshold" : 25
+
+```
+
+### Run the script
+
+```
+python path/to/T2C_analysis_pipeline.py
 ```

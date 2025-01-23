@@ -100,6 +100,10 @@ def sgd_based_registration(fixed_img_path, moving_img_path, moving_img_save_path
         # save qdess scans
         print(f'Saving registered qdess files')
         qdess_moving_reg.save(moving_img_save_path, save_custom=True, image_data_format=ImageDataFormat.nifti)
+        
+        # remove the output directory
+        output_path= os.path.join(reg_path, f'registration_files')
+        shutil.rmtree(output_path, ignore_errors=True)
       
     else:
         print("Please check the paths of inout images.")

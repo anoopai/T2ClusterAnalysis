@@ -1,4 +1,4 @@
-def compute_t2(qdess_path, mask_path, t2_save_path, lateral2medial):
+def compute_t2_fc(qdess_path, mask_path, t2_save_path):
 
     import dosma as dm
     import os
@@ -6,13 +6,11 @@ def compute_t2(qdess_path, mask_path, t2_save_path, lateral2medial):
 
     import numpy as np
     import matplotlib.pyplot as plt
-    import sigpy as sp
 
     from dosma import preferences
     from dosma.scan_sequences import QDess
     from dosma.tissues import FemoralCartilage
     from dosma.core.quant_vals import T2
-    from dosma.utils import io_utils
 
 
     # Load qdess scan for baseline
@@ -36,19 +34,11 @@ def compute_t2(qdess_path, mask_path, t2_save_path, lateral2medial):
 
     # Convert the np.array into float64 from int16
     t2.volumetric_map = t2.volumetric_map.astype(np.float64)
-
-    if lateral2medial==True:
-    # Scan goes from lateral -> medial
-        fc.medial_to_lateral = False
-        fc.add_quantitative_value(t2)
-        fc.calc_quant_vals()
-        fc.save_data(t2_save_path)
-        print('saved FC T2 data')
-        
-    elif lateral2medial==False:
-    # Scan goes from lateral -> medial
-        fc.medial_to_lateral = True
-        fc.add_quantitative_value(t2)
-        fc.calc_quant_vals()
-        fc.save_data(t2_save_path) 
-        print('saved FC T2 data')
+    
+    # Convert the t2 map to sitk image
+    # sitk_t2map = t2.volumetric_map.to_sitk(image_orientation='sagittal')
+    # sitk.WriteImage(sitk_t2map, t2_save_path)
+    
+    # save the t2 map
+    t2.volumetric_map.save_volume(t2_save_path)
+    

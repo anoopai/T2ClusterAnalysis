@@ -3,7 +3,6 @@ import sys
 import time
 import nibabel as nib
 import numpy as np
-import subprocess
 import json
 from pathlib import Path
 
@@ -68,13 +67,15 @@ size_threshold = config['size_threshold']
 #####################################################################################################################
 
 # 1. Convert Qdess file format: dicoms to nii (usable by Dosma)
-# if image1_dicom_path != "":
-#     # image1 scans
-#     convert_qdess_dicom2nii(image1_dicom_path, image1_path)
+if image1_dicom_path != "":
+    # image1 scans
+    print("Converting Qdess dicoms to nii")
+    convert_qdess_dicom2nii(image1_dicom_path, image1_path)
 
-# if image2_dicom_path != "":
-#     # image2 scans
-#     convert_qdess_dicom2nii(image2_dicom_path, image2_path)
+if image2_dicom_path != "":
+    # image2 scans
+    print("Converting Qdess dicoms to nii")
+    convert_qdess_dicom2nii(image2_dicom_path, image2_path)
     
 #####################################################################################################################
 
@@ -238,6 +239,16 @@ compute_t2_fc(qdess_path = image2_reg_path,
            mask_path = seg2_fc_reg_path,
            t2_save_path = t2_map2_path
            )
+
+# Visualise the T2 maps before and after filtering (check the effect of filtering and adjust the FWHM parameter)
+
+visualize_t2_maps(
+    t2_map1_path = t2_map1_path,
+    t2_mao1_filt_path = t2_map1_filt_path,
+    t2_map2_path = t2_map2_path,
+    t2_map2_filt_path = t2_map2_filt_path,
+    result_path = results_path
+)
 
 ######################################################################################################################
 # TO DO visualize T2 maps and filtering

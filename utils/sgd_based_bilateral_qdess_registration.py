@@ -1,4 +1,4 @@
-def sgd_based_bilateral_qdess_registration(fixed_img_path, moving_img_path, moving_img_save_path, fixed_mask_path, moving_mask_path, elastix_file_path, reg_path, reg_check):
+def sgd_based_bilateral_qdess_registration(fixed_img_path, moving_img_path, moving_img_save_path, fixed_mask_path, moving_mask_path, elastix_file_path, reg_path):
 
     '''
     This function performs registration between two images using signed distance map of the segmentation masks.
@@ -131,27 +131,3 @@ def sgd_based_bilateral_qdess_registration(fixed_img_path, moving_img_path, movi
     if os.path.exists(moving_img_save_echo2_path):
         os.remove(moving_img_save_echo2_path)
     nib.save(nib_reg_echo2, moving_img_save_echo2_path)
-
-    # seg_fixed.save_volume(seg_reg_1_save_path)
-    # if os.path.exists(seg_reg_0_save_path)== False:
-    #     seg_fixed.save_volume(seg_reg_0_save_path)
-        
-    if reg_check:
-        
-        reg_check_path = os.path.join(reg_path, f'registration_check')
-
-        if not os.path.exists(reg_check_path):
-            os.makedirs(reg_check_path)             
-    
-        # Plot and save registrations for checking
-        n= 30
-        _, axes = plt.subplots(nrows=1, ncols=2, figsize=(20,20), constrained_layout=False)
-        axes[0].imshow(qdess_fixed.volumes[0].A[:,:,n], cmap='gray', alpha=1)
-        axes[0].imshow(qdess_moving_reg.volumes[0].A[:,:,n], cmap="Blues", alpha= 0.7)
-        axes[1].imshow(qdess_moving_reg.volumes[0].A[:,:,n], cmap='gray', alpha=1)
-        axes[1].imshow(seg_fixed.A[:,:,n], cmap="Blues", alpha=0.7)
-        axes[0].set_title("Fixed vs Moving Qdess Scan", fontsize=12)
-        axes[1].set_title("Fixed Mask on Moving Qdess Scan", fontsize=12)
-
-        plt_save_path= os.path.join(reg_check_path, f'{moving_img_path.split(os.sep)[-2]}_slice{n}.jpg')
-        plt.savefig(plt_save_path)
