@@ -1,4 +1,4 @@
-def compute_t2_fc(qdess_path, mask_path, t2_save_path):
+def compute_t2_fc_dess(qdess_path, mask_path, t2_save_path):
 
     import dosma as dm
     import os

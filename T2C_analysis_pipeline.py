@@ -240,16 +240,6 @@ compute_t2_fc(qdess_path = image2_reg_path,
            t2_save_path = t2_map2_path
            )
 
-# Visualise the T2 maps before and after filtering (check the effect of filtering and adjust the FWHM parameter)
-
-visualize_t2_maps(
-    t2_map1_path = t2_map1_path,
-    t2_mao1_filt_path = t2_map1_filt_path,
-    t2_map2_path = t2_map2_path,
-    t2_map2_filt_path = t2_map2_filt_path,
-    result_path = results_path
-)
-
 ######################################################################################################################
 # TO DO visualize T2 maps and filtering
 # TO DO: Save T2 map region-wise
@@ -290,6 +280,15 @@ nib.save(t2_map1_fc_filt, t2_map1_fc_path)
 t2_map2_fc_filt = nib.load(t2_map2_filt_path).get_fdata() * nib.load(seg2_fc_reg_path).get_fdata()
 t2_map2_fc_filt = nib.Nifti1Image(t2_map2_fc_filt, nib.load(t2_map1_filt_path).affine)
 nib.save(t2_map2_fc_filt, t2_map2_fc_path)
+
+# Visualise the T2 maps before and after filtering (check the effect of filtering and adjust the FWHM parameter)
+visualize_t2_maps(
+    t2_map1_path = t2_map1_path,
+    t2_map1_filt_path = t2_map1_filt_path,
+    t2_map2_path = t2_map2_path,
+    t2_map2_filt_path = t2_map2_filt_path,
+    result_path = results_path
+)
 
 ########################################################################################################################
 ########################################################################################################################
