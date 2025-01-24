@@ -42,8 +42,13 @@ main_pipeline.ipynb
 cluster_analysis_copy.ipynb
 cluster_analysis_pipeline_example.ipynb
 main_pipeline.py
-surface_plots.ipynb
+surfaces_plots.ipynb
 T2C_metrics_plots.ipynb
+T2C_analysis_pipeline_Dess.py
+trial.ipynb
+trial_dess.ipynb
+stdout.nipype
+
 
 # Other folders
 **/dependencies
@@ -56,3 +61,4 @@ T2C_metrics_plots.ipynb
 **/dosma_weights
 **/weights
 **/data
+**/logs
