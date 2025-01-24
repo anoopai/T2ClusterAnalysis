@@ -37,11 +37,13 @@ docs/source/generated
 coverage.xml
 
 # scripts
-.compute_t2_fc_dess.py
-.main_pipeline.ipynb
-.main_pipeline.py
-.surface_plots.ipynb
-.T2C_metrics_plots.ipynb
+compute_t2_fc_dess.py
+main_pipeline.ipynb
+cluster_analysis_copy.ipynb
+cluster_analysis_pipeline_example.ipynb
+main_pipeline.py
+surface_plots.ipynb
+T2C_metrics_plots.ipynb
 
 # Other folders
 **/dependencies

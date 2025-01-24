@@ -9,7 +9,7 @@
 ### Fork and clone the repository to your machine
 
 ```
-https://github.com/anoopai/T2ClusterAnalysis.git
+git clone https://github.com/anoopai/T2ClusterAnalysis.git
 cd T2ClusterAnalysis
 ```
 
@@ -96,7 +96,6 @@ pip install -r requirements.txt
 
 ### Update config.json file for the following paths
 
-```
     # path to your dicom dirctory - Baseline visit
     # If you don't have dicoms directory, input "" 
     # "image1_dicom_path": "",
@@ -145,13 +144,10 @@ pip install -r requirements.txt
     # Size threhsold is calculated as number of voxels (size of T2 cluster). You can use this value as default or calculate one for your dataset
     "size_threshold" : 25
 
-```
-
 ### Run the script
 
 ```
 python path/to/T2C_analysis_pipeline.py
-
 ```
 
 Running the above script will save following files in the results directory
@@ -168,13 +164,13 @@ Running the above script will save following files in the results directory
 10. T2 difference map intensity thresholded (t2_difference_map_int_threshold)
 11. T2 difference map size thresholded (t2_difference_map_size_threshold)
 12. Visualisation of registration between qdess from 2 visits (Reg_qdess_slice30.jpg)
-13. Visualisation of femoral cartilage masks from Image 1 and registered Image 2. 
+13. Visualisation of femoral cartilage masks from Image 1 and registered Image 2.
 14. Visualisation of T2 maps before and after filtering for Image 1 and Image 2
-14. T2 Clusters assigned to respected FC subregions (t2c_subregions)
-15. T2 Cluster analysis results (t2c_results)
+15. T2 Clusters assigned to respected FC subregions (t2c_subregions)
+16. T2 Cluster analysis results (t2c_results)
 
-Note: 
+Note:
     1. The '_1' or '_2' in the name of a file corresponds to file/data from Image1 or Image2 respectively.
-    For example, seg1_fc.nii.gz is the femoral cartilage segmentation for Image1 qdess file. 
+    For example, seg1_fc.nii.gz is the femoral cartilage segmentation for Image1 qdess file.
 
     2. All image files are stored in NIfTI (.nii or .nii.gz) format
