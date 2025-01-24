@@ -50,8 +50,6 @@ pip install huggingface-hub
 # Login
 huggingface-cli login
 ```
-Update the config file to point to the above files 
-
 Once you run the above, you will then input your access token from huggingface. You will need to have/create a hugginface account, and then can get the access token by:
 
 * login to huggingface
