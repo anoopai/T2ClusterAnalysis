@@ -1,5 +1,9 @@
 # T2-Cluster-Analysis
 
+#### “T2 cluster analysis” is a quantitative approach for identifying subject-specific contiguous regions of longitudinally increasing (or decreasing) T2 values. Cluster analysis for a subject requires registration of data from two timepoints, calculation of T2 difference maps between the timepoints, and two thresholding steps to identify prominent regions of elevated T2.
+
+![T2 Cluster Analysis](files/images/T2C_analysis.jpg)
+
 ## Installation
 
 ### Fork and clone the repository to your machine
@@ -147,4 +151,30 @@ pip install -r requirements.txt
 
 ```
 python path/to/T2C_analysis_pipeline.py
+
 ```
+
+Running the above script will save following files in the results directory
+
+1. Segmentation (femur, tibia, patella, femoral cartilage, tibial cartilage, patellar cartilage, and meniscus) (seg_all)
+2. Segmentation of only femoral cartilage (seg_fc)
+3. Femoral cartilage mask divided into five subregions (anterior, lateral central, lateral posterior, medial central, medial posterior) (seg_fc_subregions)
+4. Image2 registered to Image1 (image2_reg)
+5. Segmentation on Image2 after registration (seg2_all_reg, seg2_fc_reg, seg2_fc_subregions_reg)
+6. T2 map of the whole image (t2_map)
+7. T2 map of the femoral cartilage only (t2_map_fc)
+8. T2 map filtered (t2_map_filt or t2_map_fc_filt)
+9. T2 difference map (t2_difference_map)
+10. T2 difference map intensity thresholded (t2_difference_map_int_threshold)
+11. T2 difference map size thresholded (t2_difference_map_size_threshold)
+12. Visualisation of registration between qdess from 2 visits (Reg_qdess_slice30.jpg)
+13. Visualisation of femoral cartilage masks from Image 1 and registered Image 2. 
+14. Visualisation of T2 maps before and after filtering for Image 1 and Image 2
+14. T2 Clusters assigned to respected FC subregions (t2c_subregions)
+15. T2 Cluster analysis results (t2c_results)
+
+Note: 
+    1. The '_1' or '_2' in the name of a file corresponds to file/data from Image1 or Image2 respectively.
+    For example, seg1_fc.nii.gz is the femoral cartilage segmentation for Image1 qdess file. 
+
+    2. All image files are stored in NIfTI (.nii or .nii.gz) format
