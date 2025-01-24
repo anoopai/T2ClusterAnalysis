@@ -38,7 +38,7 @@ start_time = time.time()
 ######################################################################################################################
 
 # Read the config file
-path_config = '/dataNAS/people/anoopai/T2ClusterAnalysis/config.json'
+path_config = '/dataNAS/people/anoopai/T2ClusterAnalysis/config_T2C_analysis_pipeline.json'
 
 print("Reading the config file")
 with open(path_config) as f:

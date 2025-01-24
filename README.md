@@ -91,9 +91,9 @@ pip install .
 pip install -r requirements.txt
 ```
 
-## Pipeline
+## T2 Cluster Analysis Pipeline
 
-### Update config.json file for the following paths
+### Step 1: Update config_T2C_analysis_pipeline.json file for the following paths
 
     # path to your dicom dirctory - Baseline visit
     # If you don't have dicoms directory, input ""
@@ -143,7 +143,7 @@ pip install -r requirements.txt
     # Size threhsold is calculated as number of voxels (size of T2 cluster). You can use this value as default or calculate one for your dataset
     "size_threshold" : 25
 
-### Run the script
+### Step 2: Run script
 
 ```
 python path/to/T2C_analysis_pipeline.py
@@ -175,6 +175,26 @@ Note:
     2. All image files are stored in NIfTI (.nii or .nii.gz) format
     3. This pipeline uses the intensity and size thresholds computed from our dataset.
 
-### Intensity and Size thresholds
+### Step 3 (Optional/as needed): Intensity and Size thresholds
 
 Look at T2C_thresholds_custom.ipynb to compute thresholds for your data
+
+
+## Creating 3D Visualisation
+
+### Step 1: Update config_surface_maps_3D.json file for the following paths
+
+```
+    # Enter the path to the T2C Map, T2 difference map, etc (nii format)
+    map_path= '/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-5/aclr/results/t2c_subregions.nii.gz'
+
+    # Enter the path to the corresponding tissue femoral cartilage segmentation file (nii format)
+    seg_path = '/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-5/aclr/results/seg2_fc_reg.nii.gz'
+ ```  
+
+### Step 2: Run script
+
+```
+python path/to/T2C_analysis_pipeline.py
+```
+

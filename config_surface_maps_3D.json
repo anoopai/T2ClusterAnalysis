@@ -1,0 +1,7 @@
+{
+    
+    "map_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-5/aclr/results/t2c_subregions.nii.gz",
+    
+    "seg_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-5/aclr/results/seg2_fc_reg.nii.gz"
+    
+}
