@@ -6,7 +6,7 @@
 
 ## Installation
 
-### Fork and clone the repository to your machine
+### Clone the repository to your machine
 
 ```
 git clone https://github.com/anoopai/T2ClusterAnalysis.git
@@ -48,8 +48,9 @@ Download DOSMA weights to perform automatic bone and tissue segmentation
 pip install huggingface-hub
 
 # Login
-Update the config file to point to the above files 
+huggingface-cli login
 ```
+Update the config file to point to the above files 
 
 Once you run the above, you will then input your access token from huggingface. You will need to have/create a hugginface account, and then can get the access token by:
 
@@ -97,12 +98,12 @@ pip install -r requirements.txt
 ### Update config.json file for the following paths
 
     # path to your dicom dirctory - Baseline visit
-    # If you don't have dicoms directory, input "" 
+    # If you don't have dicoms directory, input ""
     # "image1_dicom_path": "",
     "image1_dicom_path": "/dataNAS/people/anoopai/T2ClusterAnalysis/data/Subject/VISIT-1/aclr/scans/qdess_dicoms",
 
     # path to your dicom dirctory - Subsequent visit
-    # If you don't have a dicoms directory, input "" 
+    # If you don't have a dicoms directory, input ""
     # "image1_dicom_path": "",
     "image2_dicom_path": "/dataNAS/people/anoopai/T2ClusterAnalysis/data/SubNum/VISIT-2/aclr/scans/qdess_dicoms",
 
@@ -130,12 +131,12 @@ pip install -r requirements.txt
     # Segmentation Model weights
     "dosma_weights_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/files/dosma_weights/Goyal_Bone_Cart_July_2024_best_model.h5",
 
-    # path to file containing elastix parameters for registration 
+    # path to file containing elastix parameters for registration
     "elastix_registration_parameters_path" : "/dataNAS/people/anoopai/T2ClusterAnalysis/files/elastic_parameters/elastix_registration_parameters_SDF_mask.txt",
 
     # Cluster type can be:
     # "pos" for increase in T2 with time
-    # "neg" for decrease in T2 with time 
+    # "neg" for decrease in T2 with time
     "cluster_type" : "pos",
 
     # Intensity threhsold is in T2 change in ms. You can use this value as default or calculate one for your dataset
