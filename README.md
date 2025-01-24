@@ -174,3 +174,8 @@ Note:
     For example, seg1_fc.nii.gz is the femoral cartilage segmentation for Image1 qdess file.
 
     2. All image files are stored in NIfTI (.nii or .nii.gz) format
+    3. This pipeline uses the intensity and size thresholds computed from our dataset.
+
+### Intensity and Size thresholds
+
+Look at T2C_thresholds_custom.ipynb to compute thresholds for your data
