@@ -48,6 +48,7 @@ T2C_analysis_pipeline_Dess.py
 trial.ipynb
 trial_dess.ipynb
 stdout.nipype
+combine_t2c_results.py
 
 
 # Other folders

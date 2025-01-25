@@ -27,7 +27,7 @@ def t2c_metrics_combine_data(t2c_subregion_data, cluster_map_path, save_path):
     Total_Region_Voxels=('Region Voxels', 'first'),
     T2C_Size=('T2C Size (mm^3)', 'mean'),
     T2C_Count=('T2C Count', 'sum'),
-    T2C_Mean=('T2C Mean (ms)', 'mean'),
+    T2C_Mean=('T2C Mean (ms)', 'mean'), 
     T2C_Std=('T2C Std (ms)', 'mean'),
     T2C_Median=('T2C Median (ms)', 'mean')
     ).reset_index()
@@ -38,7 +38,7 @@ def t2c_metrics_combine_data(t2c_subregion_data, cluster_map_path, save_path):
 
     # Calculate other columns
     data_all['T2C Percent'] = (agg_data['Total_T2C_Voxels'] / agg_data['Total_Region_Voxels']) * 100
-    data_all['T2C Size (mm^3)'] = agg_data['T2C_Size'] * voxel_dims[0] * voxel_dims[1] * voxel_dims[2]
+    data_all['T2C Size (mm^3)'] = agg_data['T2C_Size']
     data_all['T2C Count'] = agg_data['T2C_Count']   
     data_all['T2C Mean (ms)'] = agg_data['T2C_Mean']
     data_all['T2C Std (ms)'] = agg_data['T2C_Std']
@@ -56,8 +56,8 @@ def t2c_metrics_combine_data(t2c_subregion_data, cluster_map_path, save_path):
         'T2C Mean (ms)': 'NaN',
         'T2C Std (ms)': 'NaN',
         'T2C Median (ms)': 'NaN',
-        'T2C Voxels': 0,
-        'Region Voxels': 0,
+        'Region Voxels': agg_data['Total_Region_Voxels'],
+        'T2C Voxels': agg_data['Total_T2C_Voxels'],
     } for region in missing_regions])
 
     # Combine the data

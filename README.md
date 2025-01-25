@@ -180,7 +180,7 @@ Note:
 Look at T2C_thresholds_custom.ipynb to compute thresholds for your data
 
 
-## Creating 3D Visualisation
+## Creating 3D Surface
 
 ### Step 1: Update config_surface_maps_3D.json file for the following paths
 

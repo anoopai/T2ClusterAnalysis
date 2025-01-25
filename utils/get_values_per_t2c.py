@@ -60,7 +60,7 @@ def get_values_per_t2c(cluster_map, fc_seg_common):
                 t2c_std = np.nanstd(cluster_single)
                 t2c_median = np.nanmedian(cluster_single)
             else:
-                t2c_voxels = 0
+                t2c_voxels = np.sum(cluster_mask)
                 t2c_percent = 0
                 t2c_size = 0
                 t2c_mean = 'NaN'
