@@ -50,6 +50,7 @@ pip install huggingface-hub
 # Login
 huggingface-cli login
 ```
+
 Once you run the above, you will then input your access token from huggingface. You will need to have/create a hugginface account, and then can get the access token by:
 
 * login to huggingface
@@ -138,10 +139,10 @@ pip install -r requirements.txt
     "cluster_type" : "pos",
 
     # Intensity threhsold is in T2 change in ms. You can use this value as default or calculate one for your dataset
-    "intensity_threshold" : 12.5,
+    "intensity_threshold" : 8.5,
 
     # Size threhsold is calculated as number of voxels (size of T2 cluster). You can use this value as default or calculate one for your dataset
-    "size_threshold" : 25
+    "size_threshold" : 23
 
 ### Step 2: Run script
 
@@ -179,7 +180,6 @@ Note:
 
 Look at T2C_thresholds_custom.ipynb to compute thresholds for your data
 
-
 ## Creating 3D Surface
 
 ### Step 1: Update config_surface_maps_3D.json file for the following paths
@@ -190,11 +190,10 @@ Look at T2C_thresholds_custom.ipynb to compute thresholds for your data
 
     # Enter the path to the corresponding tissue femoral cartilage segmentation file (nii format)
     seg_path = '/dataNAS/people/anoopai/T2ClusterAnalysis/data/10-P/VISIT-5/aclr/results/seg2_fc_reg.nii.gz'
- ```  
+```
 
 ### Step 2: Run script
 
 ```
 python path/to/T2C_analysis_pipeline.py
 ```
-

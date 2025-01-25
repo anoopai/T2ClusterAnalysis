@@ -15,8 +15,8 @@
 
     "cluster_type" : "pos", 
 
-    "intensity_threshold" : 12.5,
+    "intensity_threshold" : 8.5,
 
-    "size_threshold" : 25
+    "size_threshold" : 23
 
 }
