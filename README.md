@@ -197,3 +197,6 @@ Look at T2C_thresholds_custom.ipynb to compute thresholds for your data
 ```
 python path/to/T2C_analysis_pipeline.py
 ```
+
+## Citation
+Pai S A, Gatti AA, Black MS, Young KA, Desai AD, Barbieri M, Asay JL, Sherman SL, Gold GE, Kogan F, Hargreaves BA, Chaudhari AS. T2 Clusters Are More Sensitive Than Mean T2 Change to Detect Early and Longitudinal Changes in Anterior Cruciate Ligament Reconstructed and Healthy Knees. J Magn Reson Imaging. 2024 Dec 30. doi: 10.1002/jmri.29689.
