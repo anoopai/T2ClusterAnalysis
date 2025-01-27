@@ -1,7 +1,7 @@
 from os import remove
 
 
-def t2c_metrics_combine_data(t2c_subregion_data, cluster_map_path, save_path):
+def t2c_metrics_combine_data(t2c_subregion_data, fc_subregions_path, save_path):
     
     import os
     import numpy as np
@@ -9,13 +9,16 @@ def t2c_metrics_combine_data(t2c_subregion_data, cluster_map_path, save_path):
     import nibabel as nib
 
     from utils.append_df_to_excel import append_df_to_excel
+    from utils.get_num_voxels import get_num_voxels
 
     # Load the data from the excel file
     
-    cluster_map= cluster_map = nib.load(cluster_map_path)
-    voxel_dims= cluster_map.header.get_zooms()
-
-    subregions_dict = {'AN': 11, 'MC': 12, 'LC': 13, 'MP': 14, 'LP': 15}
+    fc_subregions = nib.load(fc_subregions_path)
+    fc_subregions_mask= fc_subregions.get_fdata().astype(int)
+    subregion_num_voxels_dict = get_num_voxels(fc_subregions_mask)
+    
+    subregions_map = {'AN': 11, 'MC': 12, 'LC': 13, 'MP': 14, 'LP': 15}
+    
 
     # Regions to ensure all are included
     all_regions = ['AN', 'LC', 'LP', 'MC', 'MP']
@@ -48,6 +51,7 @@ def t2c_metrics_combine_data(t2c_subregion_data, cluster_map_path, save_path):
 
     # Add missing regions with zero values
     missing_regions = set(all_regions) - set(data_all['Region'])
+    data_mission= t2c_subregion_data[t2c_subregion_data['Region'].isin(missing_regions)]
     missing_data = pd.DataFrame([{
         'Region': region,
         'T2C Percent': 0,
@@ -56,8 +60,8 @@ def t2c_metrics_combine_data(t2c_subregion_data, cluster_map_path, save_path):
         'T2C Mean (ms)': 'NaN',
         'T2C Std (ms)': 'NaN',
         'T2C Median (ms)': 'NaN',
-        'Region Voxels': agg_data['Total_Region_Voxels'],
-        'T2C Voxels': agg_data['Total_T2C_Voxels'],
+        'Region Voxels': subregion_num_voxels_dict[subregions_map[region]],
+        'T2C Voxels': 0,
     } for region in missing_regions])
 
     # Combine the data

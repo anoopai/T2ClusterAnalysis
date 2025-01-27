@@ -104,10 +104,14 @@ def assign_t2c_to_subregions(cluster_map_path, fc_subregions_path, t2c_save_path
     # Assign sub-region values to T2C based on which region it belongs
     t2c_as_subregion_labels = np.zeros_like(cc_labels)
     for t2c_label, subregion_label in t2c_in_subregion_dict.items():
-        t2c_as_subregion_labels[cc_labels == t2c_label] = subregion_label
+        t2c_as_subregion_labels[cc_labels == t2c_label] = subregion_label # assign labels to t2C
         
-    t2c_as_subregion_labels_img= nib.Nifti1Image(t2c_as_subregion_labels, affine)
-    nib.save(t2c_as_subregion_labels_img, t2c_save_path)
+        fc_subregions_mask_binary= np.where(fc_subregions_mask > 0, 1, np.nan)
+        t2c_as_subregion_labels = np.where(t2c_as_subregion_labels == 0, 1, t2c_as_subregion_labels) # assign 1 to the background
+        t2c_as_subregion_labels_fc = fc_subregions_mask_binary * t2c_as_subregion_labels
+            
+    t2c_as_subregion_labels_fc_img= nib.Nifti1Image(t2c_as_subregion_labels_fc, affine)
+    nib.save(t2c_as_subregion_labels_fc_img, t2c_save_path)
     
     # append_df_to_excel(data=cluster_com_data, sheet= 'T2C COM', save_path= t2c_results_save_path)      
     # append_df_to_excel(data=subregions_com_data, sheet= 'Regions COM', save_path= t2c_results_save_path)

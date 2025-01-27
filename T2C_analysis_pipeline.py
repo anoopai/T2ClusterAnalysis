@@ -382,7 +382,7 @@ t2c_in_subregion_data = assign_t2c_to_subregions(
 
 t2c_metrics_combine_data(
     t2c_subregion_data = t2c_in_subregion_data, 
-    cluster_map_path = t2_size_threshold_path, 
+    fc_subregions_path = seg_fc_subregions_common_path, 
     save_path = t2c_results_path)
 
 # t2c_subregion_results_path = os.path.join(results_path, 't2c_results_subregionFC.xlsx')
