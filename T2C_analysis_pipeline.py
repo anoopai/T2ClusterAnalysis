@@ -16,6 +16,7 @@ from utils.get_common_pixels_fc_subregion_masks import *
 from utils.compute_t2_fc import *
 from utils.filter_t2maps import *
 from utils.visualize_t2_maps import *
+from utils.t2_subregion_means import *
 from utils.t2_difference_maps import *
 from utils.apply_intensity_threshold import *
 from utils.apply_size_threshold import *
@@ -217,7 +218,7 @@ else:
 # 1. Compute T2 maps of the tissue (Femoral cartilage in this case)
 # 2. Filter T2 maps with a Gaussian filter
 # 3. Visualise the T2 maps before and after filtering (check the effect of filtering and adjust the FWHM parameter)
-
+# 4. Save T2 maps for eacg FC subregion (before and after filtering)
 ######################################################################################################################
 ######################################################################################################################
 
@@ -240,10 +241,6 @@ compute_t2_fc(qdess_path = image2_reg_path,
            t2_save_path = t2_map2_path
            )
 
-######################################################################################################################
-# TO DO visualize T2 maps and filtering
-# TO DO: Save T2 map region-wise
-# Change T2 code for custom parameters!!!!!
 ######################################################################################################################
 
 # 2. Filter T2 maps with a Gaussian filter
@@ -281,7 +278,9 @@ t2_map2_fc_filt = nib.load(t2_map2_filt_path).get_fdata() * nib.load(seg2_fc_reg
 t2_map2_fc_filt = nib.Nifti1Image(t2_map2_fc_filt, nib.load(t2_map1_filt_path).affine)
 nib.save(t2_map2_fc_filt, t2_map2_fc_path)
 
-# Visualise the T2 maps before and after filtering (check the effect of filtering and adjust the FWHM parameter)
+#################################################################################################################
+
+# 3. Visualise the T2 maps before and after filtering (check the effect of filtering and adjust the FWHM parameter)
 visualize_t2_maps(
     t2_map1_path = t2_map1_path,
     t2_map1_filt_path = t2_map1_filt_path,
@@ -289,6 +288,47 @@ visualize_t2_maps(
     t2_map2_filt_path = t2_map2_filt_path,
     result_path = results_path
 )
+
+#################################################################################################################
+
+# 4. Save T2 maps for each FC subregion (before and after filtering)
+
+t2_map_subregions1_path = os.path.join(results_path, 't2_map1_subregions.xlsx')
+if os.path.exists(t2_map_subregions1_path):
+    os.remove(t2_map_subregions1_path)
+
+print("Saving T2 maps for each FC subregion")
+t2_subregion_means(
+    t2_map_path= t2_map1_path,
+    fc_subregions_path= seg_fc_subregions_common_path,
+    save_path= t2_map_subregions1_path,
+    sheet = 'T2 Region-wise Unfiltered'
+    )
+
+t2_subregion_means(
+    t2_map_path= t2_map1_filt_path,
+    fc_subregions_path= seg_fc_subregions_common_path,
+    save_path= t2_map_subregions1_path,
+    sheet = 'T2 Region-wise Filtered'
+    )
+
+t2_map_subregions2_path = os.path.join(results_path, 't2_map2_subregions.xlsx')
+
+if os.path.exists(t2_map_subregions2_path):
+    os.remove(t2_map_subregions2_path)
+t2_subregion_means(
+    t2_map_path= t2_map2_path,
+    fc_subregions_path= seg_fc_subregions_common_path,
+    save_path= t2_map_subregions2_path,
+    sheet = 'T2 Region-wise Unfiltered'
+    )
+
+t2_subregion_means(
+    t2_map_path= t2_map2_filt_path,
+    fc_subregions_path= seg_fc_subregions_common_path,
+    save_path= t2_map_subregions2_path,
+    sheet = 'T2 Region-wise Filtered'
+    )
 
 ########################################################################################################################
 ########################################################################################################################
