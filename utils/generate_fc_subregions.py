@@ -27,7 +27,7 @@ def generate_fc_subregions(input_seg_file_path, output_seg_file_path):
         seg_image= seg_reorient,
         fem_cart_label_idx=2,
         wb_region_percent_dist=0.6,
-        # femur_label=1,
+        femur_label=7,
         med_tibia_label=3,
         lat_tibia_label=4,
         ant_femur_mask=11,

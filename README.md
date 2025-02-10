@@ -38,7 +38,7 @@ cd dependencies
 git clone https://github.com/gattia/DOSMA
 cd DOSMA
 git checkout bone_seg
-pip install '.[ai]'
+pip install '.[ai]' # if this does not work try: pip install dosma [ai]
 ```
 
 Download DOSMA weights to perform automatic bone and tissue segmentation
@@ -80,8 +80,6 @@ cd pymskt
 # INSTALLING DEPENDENCIES
 # Recommend pip becuase cycpd and pyfocusr are available on pypi (but not conda)
 pip install -r requirements.txt
-
-# IF USING PIP
 pip install .
 ```
 

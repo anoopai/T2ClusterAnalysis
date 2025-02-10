@@ -344,7 +344,7 @@ t2_subregion_means(
 
 t2_diff_map_path = os.path.join(results_path, 't2_difference_map.nii.gz')
 
-print("Computing difference map of T2 values between the two time points (Image 2 minus Image 1)")
+print("Computing difference map of T2 values between the two time points (Image2 minus Image1)")
 t2_difference_map = t2_difference_maps(
     baseline_qmap_path = t2_map1_fc_path, 
     followup_qmap_path = t2_map2_fc_path, 
